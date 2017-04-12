@@ -47,13 +47,12 @@ function getCurrentTemperature(address) {
 
 
 function getDistanceFromIss(address) {
-    var issPos;
-    
     var p1 = getIssPosition();
     var p2 = getAddressPosition(address);
     
-    Promise.all([p1, p2]).then(values => {
-        return getDistance(values);
+    return Promise.all([p1, p2])
+    .then(positions => {
+        return getDistance(positions[1], positions[0]);
     });
 }
 

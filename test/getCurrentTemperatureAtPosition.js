@@ -4,7 +4,7 @@ var nock = require('nock');
 describe('getCurrentTemperatureAtPosition', function() {
     it('Should return the current temperature', function() {
         nock('https://api.darksky.net')
-            .get(/\/forecast\/.*/)
+            .get(/\/forecast\/.*1,1/)
             .reply(200, {
                 currently: {
                     temperature: 42

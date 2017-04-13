@@ -11,7 +11,10 @@ function getIssPosition() {
             function(response) {
                 var data = JSON.parse(response);
                 
-                var newOutput = {"lat":data.iss_position.latitude, "lng":data.iss_position.longitude};
+                var newOutput = {
+                    "lat":data.iss_position.latitude, 
+                    "lng":data.iss_position.longitude
+                };
                 
                 return newOutput;
             }
@@ -28,7 +31,7 @@ function getAddressPosition(address) {
 }
 
 function getCurrentTemperatureAtPosition(position) {
-    return request('https://api.darksky.net/forecast/e1f4da53d6f0d0889607627a1fe13360/position')
+    return request('https://api.darksky.net/forecast/e1f4da53d6f0d0889607627a1fe13360/' + position.lat + ',' + position.lng)
     .then(function(response) {
         var data = JSON.parse(response);
         
@@ -38,9 +41,9 @@ function getCurrentTemperatureAtPosition(position) {
 }
 
 function getCurrentTemperature(address) {
-    return getAddressPosition(address) // gets the lat and lng from the address
-    .then(function(pos) { // returns the position as pos
-        return getCurrentTemperatureAtPosition(pos); // gets the temperature at the lat and lng in pos
+    return getAddressPosition(address)
+    .then(function(pos) {
+        return getCurrentTemperatureAtPosition(pos);
     });
 }
 

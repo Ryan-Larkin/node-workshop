@@ -42,20 +42,18 @@ function getCurrentTemperatureAtPosition(position) {
 
 function getCurrentTemperature(address) {
     return getAddressPosition(address)
-    .then(function(pos) {
-        return getCurrentTemperatureAtPosition(pos);
-    });
+    .then(getCurrentTemperatureAtPosition);
 }
 
 
 
 function getDistanceFromIss(address) {
-    var p1 = getIssPosition();
-    var p2 = getAddressPosition(address);
+    var p1 = getAddressPosition(address);
+    var p2 = getIssPosition();
     
     return Promise.all([p1, p2])
     .then(positions => {
-        return getDistance(positions[1], positions[0]);
+        return getDistance(positions[0], positions[1]);
     });
 }
 
